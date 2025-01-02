@@ -19,14 +19,12 @@ public class LoginAutomationTest {
         try {
             // Navigate to the login page
             driver.get("https://example.com/login");
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-            // Wait for the username field to be visible
-            WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username")));
-            WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
-            WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("loginButton")));
-
-
+            // Locate the username and password fields
+            WebElement usernameField = driver.findElement(By.id("username"));
+            WebElement passwordField = driver.findElement(By.id("password"));
+            WebElement loginButton = driver.findElement(By.id("loginButton"));
+            
             // Perform login
             usernameField.sendKeys("testUser");
             passwordField.sendKeys("testPassword");
