@@ -48,6 +48,15 @@
                     <target>11</target>
                 </configuration>
             </plugin>
+            <plugins>
+    <!-- SonarQube Maven Plugin -->
+    <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+        <version>4.0.0.4121</version> <!-- You can update the version if necessary -->
+    </plugin>
+</plugins>
+
 
             <!-- Maven Surefire Plugin for running tests -->
             <plugin>
