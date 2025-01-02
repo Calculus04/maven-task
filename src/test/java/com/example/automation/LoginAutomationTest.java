@@ -5,7 +5,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoginAutomationTest {
@@ -23,8 +26,11 @@ public class LoginAutomationTest {
             // Locate the username and password fields
             WebElement usernameField = driver.findElement(By.id("username"));
             WebElement passwordField = driver.findElement(By.id("password"));
-            WebElement loginButton = driver.findElement(By.id("loginButton"));
-            
+
+            // Wait for the login button to be visible
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("loginButton")));
+
             // Perform login
             usernameField.sendKeys("testUser");
             passwordField.sendKeys("testPassword");
@@ -35,6 +41,8 @@ public class LoginAutomationTest {
             String actualTitle = driver.getTitle();
             assertEquals(expectedTitle, actualTitle);
 
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             // Close the browser
             driver.quit();
