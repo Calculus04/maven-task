@@ -20,7 +20,13 @@ stages{
   stage('SonarQube Analysis'){
     steps{
       withSonarQubeEnv('sonarqube'){
-        bat 'mvn clean verify sonar: sonar'
+        bat """
+        mvn clean verify sonar:sonar \
+  -Dsonar.projectKey=maven-task\
+  -Dsonar.projectName='maven task'\
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.token=sqp_a8c80683d49c849f9ea3f39b8d1afee116fba34c
+        """
       }
     }
   }
