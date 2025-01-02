@@ -13,7 +13,7 @@ public class LoginAutomationTest {
     @Test
     public void testLogin() {
         // Set up the WebDriver
-        System.setProperty("webdriver.chrome.driver", "C:\Users\shrut\Downloads\chromedriver-win64\chromedriver-win64");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\shrut\\Downloads\\chromedriver-win64\\chromedriver-win64");
         WebDriver driver = new ChromeDriver();
 
         try {
