@@ -48,8 +48,6 @@
                     <target>11</target>
                 </configuration>
             </plugin>
-            <plugins>
-   
 
             <!-- Maven Surefire Plugin for running tests -->
             <plugin>
