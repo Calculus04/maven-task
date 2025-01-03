@@ -21,7 +21,7 @@ public class LoginAutomationTest {
 
         try {
             // Navigate to the login page
-            driver.get("http://localhost:3001");
+            driver.get("http://localhost:3000");
 
             // Locate the username and password fields
             WebElement usernameField = driver.findElement(By.id("username"));
