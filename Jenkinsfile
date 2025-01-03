@@ -22,10 +22,10 @@ stages{
       withSonarQubeEnv('sonarqube'){
         bat """
         mvn clean verify sonar:sonar \
-  -Dsonar.projectKey=maven-task \
-  -Dsonar.projectName='maven task' \
+  -Dsonar.projectKey=maven \
+  -Dsonar.projectName='maven' \
   -Dsonar.host.url=http://localhost:9000 \
-  -Dsonar.token=sqp_a8c80683d49c849f9ea3f39b8d1afee116fba34c
+  -Dsonar.token=sqp_58fb79d071b54f8a310dd456bdebf885fbc2bf8f
         """
       }
     }
