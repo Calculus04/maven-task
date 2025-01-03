@@ -25,8 +25,10 @@ stages{
   -Dsonar.projectKey=maven \
   -Dsonar.projectName='maven' \
   -Dsonar.host.url=http://localhost:9000 \
-  -Dsonar.token=sqp_58fb79d071b54f8a310dd456bdebf885fbc2bf8f
-  -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+  -Dsonar.token=sqp_58fb79d071b54f8a310dd456bdebf885fbc2bf8f \
+  -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
+  -Dsonar.java.binaries=target/classes \
+  -Dsonar.java.pmd.reportPaths=target/pmd.xml
         """
       }
     }
