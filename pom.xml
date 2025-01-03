@@ -1,72 +1,101 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-<modelVersion>4.0.0</modelVersion>
-<groupId>com.example</groupId>
-<artifactId>my-maven-project</artifactId>
-<version>1.0-SNAPSHOT</version>
- 
-    <properties>
-<maven.compiler.source>17</maven.compiler.source>
-<maven.compiler.target>17</maven.compiler.target>
-<sonar.projectKey>maven</sonar.projectKey>
-<sonar.host.url>http://localhost:9000</sonar.host.url>
-<sonar.login>${env.SONAR_TOKEN}</sonar.login>
-</properties>
- 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>automation-testing</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>Automation Testing Maven Project</name>
+
     <dependencies>
-<!-- JUnit Dependency for Testing -->
-<dependency>
-<groupId>org.junit.jupiter</groupId>
-<artifactId>junit-jupiter</artifactId>
-<version>5.10.0</version>
-<scope>test</scope>
-</dependency>
-</dependencies>
- 
+        <!-- JUnit 5 Dependency -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Selenium WebDriver Dependency -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.12.1</version>
+        </dependency>
+
+        <!-- SLF4J Simple Logger Dependency -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.9</version>
+        </dependency>
+    </dependencies>
+
     <build>
-<plugins>
-<!-- Maven Compiler Plugin -->
-<plugin>
-<groupId>org.apache.maven.plugins</groupId>
-<artifactId>maven-compiler-plugin</artifactId>
-<version>3.8.1</version>
-<configuration>
-<source>${maven.compiler.source}</source>
-<target>${maven.compiler.target}</target>
-</configuration>
-</plugin>
- 
-            <!-- Sonar Maven Plugin -->
-<plugin>
-<groupId>org.sonarsource.scanner.maven</groupId>
-<artifactId>sonar-maven-plugin</artifactId>
-<version>3.9.1.2184</version>
-</plugin>
- 
-            <!-- JaCoCo Maven Plugin for Code Coverage -->
-<plugin>
-<groupId>org.jacoco</groupId>
-<artifactId>jacoco-maven-plugin</artifactId>
-<version>0.8.10</version>
-<executions>
-<execution>
-<goals>
-<goal>prepare-agent</goal>
-</goals>
-</execution>
-<execution>
-<id>report</id>
-<phase>verify</phase>
-<goals>
-<goal>report</goal>
-</goals>
-</execution>
-</executions>
-</plugin>
- 
-            <!-- PMD Plugin for Code Duplication Detection -->
-<plugin>
+        <plugins>
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Surefire Plugin for running tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <includes>
+                        <include>**/LoginAutomationTest.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+             <!-- JaCoCo Maven Plugin for Code Coverage -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version> <!-- Use the latest JaCoCo version -->
+                <executions>
+                    <!-- Attach JaCoCo agent during the test phase -->
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <!-- Generate code coverage report after tests -->
+                    <execution>
+                        <id>report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                    <!-- Generate a coverage report in XML format -->
+                    <execution>
+                        <id>report-aggregate</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report-aggregate</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+             <plugin>
 <groupId>org.apache.maven.plugins</groupId>
 <artifactId>maven-pmd-plugin</artifactId>
 <version>3.14.0</version>
@@ -88,33 +117,9 @@
 </plugin>
 </plugins>
 </build>
- 
-    <profiles>
-<!-- Profile to Run Sonar Analysis -->
-<profile>
-<id>sonar</id>
-<activation>
-<property>
-<name>sonar</name>
-</property>
-</activation>
-<build>
-<plugins>
-<plugin>
-<groupId>org.sonarsource.scanner.maven</groupId>
-<artifactId>sonar-maven-plugin</artifactId>
-<version>3.9.1.2184</version>
-<executions>
-<execution>
-<phase>verify</phase>
-<goals>
-<goal>sonar</goal>
-</goals>
-</execution>
-</executions>
-</plugin>
-</plugins>
-</build>
-</profile>
-</profiles>
+        </plugin>
+
+                   
+        </plugins>
+    </build>
 </project>
